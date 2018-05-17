@@ -27,5 +27,13 @@ pipeline {
         }
       }
     }
+    stage('Git Tag') {
+      steps {
+        sshagent(['jenkins-ssh-key']) {
+          sh("git tag -a '${VERSION}' -m '${VERSION}'")
+          sh("git push origin ${VERSION}")
+        }
+      }
+    }
   }
 }
